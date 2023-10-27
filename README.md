@@ -6,15 +6,15 @@ An npm module to allows you to generate a raw query strings.
 
 ## Installation
 
-Install @ssong/raw-query-builder with npm
+Install raw-query-strings with npm
 
 * Using npm
 ```bash
-  npm install @ssong/raw-query-builder
+  npm install raw-query-strings
 ```
 * Using yarn
 ```bash
-  yarn add @ssong/raw-query-builder
+  yarn add raw-query-strings
 ```
 ## Features
 
@@ -73,7 +73,7 @@ Cursor { column: String, value: String/Integer, direction: [asc, desc] }
 ```
 
 ```javascript
-const rawQuery = require('@ssong/raw-query-builder');
+const rawQuery = require('raw-query-strings');
 
 const query = {
     select: ['*'],
