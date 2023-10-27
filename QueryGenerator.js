@@ -161,7 +161,7 @@ const isWhereStatement = function (param) {
 
 const isSortStatement = function (param) {
     if (Array.isArray(param)) {
-        return param.every(subArray => Array.isArray(subArray) && subArray.length === 2 && subArray.every(item => typeof item === 'string' && isSortDirection(item[1])));
+        return param.every(subArray => Array.isArray(subArray) && subArray.length === 2 && subArray.every(item => typeof item === 'string' && isSortDirection(subArray[1])));
     }
     return false;
 }

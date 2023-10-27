@@ -16,3 +16,19 @@ exports.generateMany = function (query) {
 exports.info = function() {
     console.log("Raw Query Builder version 1.0 by SSONG");
 }
+
+const x = this.generateMany({
+    select: ['*'],
+    from: {
+        source: 'user'
+    },
+    where: [
+        { and: 'id > 10' },
+        { or: 'id <= 100'},
+        { and: 'status is true' }
+    ],
+    sort: [
+        ['u.id', 'ASC']
+    ],
+})
+console.log(x)
