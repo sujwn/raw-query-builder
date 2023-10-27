@@ -1,6 +1,6 @@
 {
 	"name": "raw-query-strings",
-	"version": "1.0.3",
+	"version": "1.0.3-1",
 	"description": "module to allows you to generate a raw query strings",
 	"main": "index.js",
 	"scripts": {
