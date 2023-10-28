@@ -12,10 +12,6 @@ Install raw-query-strings with npm
 ```bash
   npm install raw-query-strings
 ```
-* Using yarn
-```bash
-  yarn add raw-query-strings
-```
 ## Features
 
 - Get One
