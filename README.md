@@ -36,7 +36,7 @@ rawQuery.generateMany(query)
     from: { source: 'user', as: 'u' },
     join: [
         {
-            source: 'post', as: 'p', on: 'p.user_id = u.id'
+            left_join: 'post', as: 'p', on: 'p.user_id = u.id'
         }
     ],
     where: [
@@ -67,9 +67,11 @@ offset: Integer
 cursor: Cursor
 
 From { source: String, as: String }
-Join { source: String, as: String, on: String }
+Join { [JoinTypes]: String, as: String, on: String }
 Where { and: String } // for or statement { or: String }
 Cursor { column: String, value: String/Integer, direction: [asc, desc] }
+
+JoinTypes [ join, left_join, right_join, inner_join, full_join ]
 ```
 
 ```javascript
