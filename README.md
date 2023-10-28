@@ -12,10 +12,6 @@ Install raw-query-strings with npm
 ```bash
   npm install raw-query-strings
 ```
-* Using yarn
-```bash
-  yarn add raw-query-strings
-```
 ## Features
 
 - Get One
@@ -68,7 +64,7 @@ cursor: Cursor
 
 From { source: String, as: String }
 Join { [JoinTypes]: String, as: String, on: String }
-Where { and: String } // for or statement { or: String }
+Where { and: String } // for OR statement { or: String }
 Cursor { column: String, value: String/Integer, direction: [asc, desc] }
 
 JoinTypes [ join, left_join, right_join, inner_join, full_join ]
