@@ -69,9 +69,7 @@ class QueryGenerator {
         }
         q.select = query.select && query.select.length > 0 ? `SELECT ${query.select.join(', ')}` : `SELECT ${query.from.as}.*`;
         q.from = `FROM ${query.from.source} AS ${query.from.as}`;
-        q.join = query.join && query.join.length > 0 ? query.join.map(function (joinObj) {
-            return joinType(joinObj.type) + ' ' + joinObj.source + ' AS ' + joinObj.as + ' ON ' + joinObj.on;
-        }).join(' ') : undefined;
+        q.join = query.join && query.join.length > 0 ? joinClause(query.join) : undefined;
         q.where = `WHERE true`;
         if (query.where && query.where.length > 0) {
             q.where += ' ' + query.where.map(function (condition) {
