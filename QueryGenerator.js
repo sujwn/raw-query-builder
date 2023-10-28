@@ -1,47 +1,47 @@
 class QueryGenerator {
     constructor(query) {
-        if (!query) throw new Error('Invalid input.');
+        if (!query) throw new Error('Invalid input: Query is missing.');
         if (!query.select) {
-            throw new Error('SELECT statement is missing.');
+            throw new Error('Invalid input: SELECT statement is missing.');
         } else {
-            if (!isArrayOfString(query.select)) throw new Error('Invalid SELECT statement.');
+            if (!isArrayOfString(query.select)) throw new Error('Invalid SELECT statement value.');
         }
 
         if (!query.from) {
-            throw new Error('FROM statement is missing.');
+            throw new Error('Invalid input: FROM statement is missing.');
         } else {
             const isFrom = isFromStatement(query.from);
-            if (!isFrom) throw new Error('Invalid FROM statement.');
+            if (!isFrom) throw new Error('Invalid FROM statement value.');
             query.from = isFrom;
         }
 
         if (query.join) {
-            if (!isJoinStatement(query.join)) throw new Error('Invalid JOIN statement.');
+            if (!isJoinStatement(query.join)) throw new Error('Invalid JOIN statement value.');
         }
 
         if (query.where) {
-            if (!isWhereStatement(query.where)) throw new Error('Invalid WHERE statement.')
+            if (!isWhereStatement(query.where)) throw new Error('Invalid WHERE statement value.')
         }
 
         if (query.sort) {
-            if (!isSortStatement(query.sort)) throw new Error('Invalid ORDER BY statement.');
+            if (!isSortStatement(query.sort)) throw new Error('Invalid ORDER BY statement value.');
         }
 
         if (query.group) {
-            if (!isArrayOfString(query.group)) throw new Error('Invalid GROUP BY statement.');
+            if (!isArrayOfString(query.group)) throw new Error('Invalid GROUP BY statement value.');
         }
 
         if (query.limit) {
-            if (!isNumber(query.limit)) throw new Error('Invalid LIMIT statement.');
+            if (!isNumber(query.limit)) throw new Error('Invalid LIMIT statement value.');
         }
 
         if (query.offset) {
-            if (!isNumber(query.offset)) throw new Error('Invalid OFFSET statement.');
+            if (!isNumber(query.offset)) throw new Error('Invalid OFFSET statement value.');
         }
 
         if (query.cursor) {
             const cursor = isCursor(query.cursor);
-            if (cursor) throw new Error('Invalid CURSOR value');
+            if (cursor) throw new Error('Invalid CURSOR statement value.');
             query.cursor = cursor;
         }
 
@@ -92,6 +92,7 @@ class QueryGenerator {
     generateFirst() {
         const query = this.query;
         const q = {};
+        
         q.select = query.select && query.select.length > 0 ? `SELECT ${query.select.join(', ')}` : `SELECT ${query.from.as}.*`;
         q.from = `FROM ${query.from.source} AS ${query.from.as}`;
         q.join = query.join && query.join.length > 0 ? query.join.map(function (joinObj) {
