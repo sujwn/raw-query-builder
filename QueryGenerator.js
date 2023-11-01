@@ -39,12 +39,6 @@ class QueryGenerator {
             if (!isNumber(query.offset)) throw new Error('Invalid OFFSET clause value.');
         }
 
-        if (query.cursor) {
-            const cursor = isCursor(query.cursor);
-            if (cursor) throw new Error('Invalid CURSOR clause value.');
-            query.cursor = cursor;
-        }
-
         this.query = query;
     }
 
@@ -52,21 +46,6 @@ class QueryGenerator {
         const query = this.query;
         const q = {};
 
-        if (query.cursor) {
-            switch (query.cursor.direction) {
-                case 'DESC':
-                case 'desc':
-                    query.where.push(`${query.cursor.column} < '${query.cursor.value}'`)
-                    break;
-                case 'ASC':
-                case 'asc':
-                default:
-                    query.where.push(`${query.cursor.column} > '${query.cursor.value}'`)
-                    break;
-
-            }
-            query.sort = [[`${query.cursor.column}`, `${query.cursor.direction}`]];
-        }
         q.select = query.select && query.select.length > 0 ? `SELECT ${query.select.join(', ')}` : `SELECT ${query.from.as}.*`;
         q.from = `FROM ${query.from.source} AS ${query.from.as}`;
         q.join = query.join && query.join.length > 0 ? joinClause(query.join) : undefined;
@@ -205,26 +184,6 @@ const parseCursor = function (param) {
     if (typeof (param) === 'number') return parseInt(param);
     else if (typeof (param) === 'string') return param;
     else false;
-}
-
-const isCursor = function (cursor) {
-    if (!cursor.column) {
-        return false;
-    }
-    if (cursor.value) {
-        cursor.value = parseCursor(cursor.value);
-        if (!cursor.value) return false;
-    } else {
-        return false;
-    }
-
-    if (cursor.direction && !isSortDirection(cursor.direction)) {
-        return false;
-    } else {
-        cursor.direction = 'asc';
-    }
-
-    return cursor;
 }
 
 module.exports = QueryGenerator;

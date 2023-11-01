@@ -3,29 +3,45 @@
 
 An npm module to allows you to generate a raw query strings.
 
+## Latest Changes Log
+- __1.0.5__: Remove Cursor clause option
 
 ## Installation
 
-Install raw-query-strings with npm
+Install raw-query-strings with __npm__ :
 
-* Using npm
 ```bash
   npm install raw-query-strings
 ```
 ## Features
 
-- Get One
+- Get One : 
 ```javascript
-rawQuery.generateOne(query)
+rawQuery.generateOne(Query)
 ```
-- Get Many
+- Get Many : 
 ```javascript
-rawQuery.generateMany(query)
+rawQuery.generateMany(Query)
 ```
 
 ## Usage/Examples
+* Query Class
+```
+select : String[]
+from: From
+join: Join[]
+where: Where[]
+group: String[]
+sort: Array[][]
+limit: Integer
+offset: Integer
 
-* Examples
+From { source: String, as: String }
+Join { [JoinTypes]: String, as: String, on: String }
+Where { and: String } // for OR statement { or: String }
+
+JoinTypes [ join, left_join, right_join, inner_join, full_join ]
+```
 ```javascript
 {
     select: ["*", "COUNT(p.*) AS post_count"],
@@ -48,28 +64,8 @@ rawQuery.generateMany(query)
     limit: 50,
     offset: 0
 }
-
 ```
-* Query Class
-```
-select : String[]
-from: From
-join: Join[]
-where: Where[]
-group: String[]
-sort: Array[][]
-limit: Integer
-offset: Integer
-cursor: Cursor
-
-From { source: String, as: String }
-Join { [JoinTypes]: String, as: String, on: String }
-Where { and: String } // for OR statement { or: String }
-Cursor { column: String, value: String/Integer, direction: [asc, desc] }
-
-JoinTypes [ join, left_join, right_join, inner_join, full_join ]
-```
-
+* Examples
 ```javascript
 const rawQuery = require('raw-query-strings');
 
