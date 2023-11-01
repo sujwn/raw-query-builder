@@ -4,7 +4,7 @@
 An npm module to allows you to generate a raw query strings.
 
 ## Latest Changes Log
-- __1.0.5__: Remove Cursor clause option
+- __1.0.5-1__: Remove Cursor clause option
 
 ## Installation
 
